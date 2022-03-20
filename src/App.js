@@ -5,15 +5,24 @@ import "./App.css";
 
 function App() {
   const [showPar, setShowPar] = useState(false);
+  const [allowToggle, setAllowToggle] = useState(false);
   console.log("App Running");
 
   const toggleParHandler = useCallback(() => {
-    setShowPar((prevShowPar) => !prevShowPar);
-  }, []);
+    if (allowToggle) {
+      setShowPar((prevShowPar) => !prevShowPar);
+    }
+  }, [allowToggle]);
+
+  const allowToggleHandler = () => {
+    setAllowToggle(true);
+  };
+
   return (
     <div className="app">
       <h1>Hi there!</h1>
-      <DemoOutput show={false} />
+      <DemoOutput show={showPar} />
+      <Button onClick={allowToggleHandler}> Allow Toggling</Button>
       <Button onClick={toggleParHandler}> Press here!</Button>
     </div>
   );
